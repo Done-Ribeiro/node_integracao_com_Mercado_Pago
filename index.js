@@ -61,7 +61,29 @@ app.get('/pagar', async (req, res) => {
 })
 
 app.post('/notificar', (req, res) => {
-  console.log(req.query);
+  // console.log(req.query);
+  const id = req.query.id;
+
+  /*
+    o Mercado Pago envia a notificação no exato instante no Pagamento
+    somente depois que ele vai salvar no banco de dados dele..
+
+    por isso precisamos esperar um tempo
+    para fazer a consulta na base de dados dele
+  */ 
+  setTimeout(() => {
+    const filtro = {
+      "order.id": id
+    }
+
+    MercadoPago.payment.search({
+      qs: filtro
+    }).then(data => {
+      console.log(data);
+    }).catch(err => {
+      console.log(err);
+    })
+  }, 20000);// 20s
 
   /*
   ! Notificação IPN
