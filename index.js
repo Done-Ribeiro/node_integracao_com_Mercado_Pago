@@ -50,7 +50,7 @@ app.get('/pagar', async (req, res) => {
 
   try {
     const pagamento = await MercadoPago.preferences.create(dados);
-    console.log(pagamento);
+    // console.log(pagamento);
 
     //! DICA - Salvar no BD => Banco.SalvarPagamento({id: id, pagador: emailDoPagador})
 
