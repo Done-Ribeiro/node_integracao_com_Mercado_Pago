@@ -60,6 +60,17 @@ app.get('/pagar', async (req, res) => {
   }
 })
 
+app.post('/notificar', (req, res) => {
+  console.log(req.query);
+
+  /*
+  ! Notificação IPN
+    Precisa dar a resposta para o Mercado Pago que recebemos a notificação..
+    e desta forma mandamos uma resposta (200) pra eles
+  */
+  res.send('Ok');
+})
+
 app.listen(process.env.PORT ? Number(process.env.PORT) : 3000, (req, res) => {
   console.log('Servidor rodando!');
 });
