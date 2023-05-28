@@ -1,12 +1,11 @@
 const express = require('express');
 const MercadoPago = require('mercadopago');
 const app = express();
-const TOKEN = require('./config/token');
-const EMAIL_PAGADOR = require('./config/email');
+require('dotenv').config()
 
 MercadoPago.configure({
   sandbox: true, //! modo de desenvolvimento
-  access_token: TOKEN,
+  access_token: process.env.MERCADO_LIVRE_TOKEN,
 });
 
 app.get('/', (req, res) => {
@@ -31,7 +30,7 @@ app.get('/pagar', async (req, res) => {
   */
 
   const id = '' + Date.now();
-  const emailDoPagador = EMAIL_PAGADOR;
+  const emailDoPagador = process.env.EMAIL_PAGADOR;
 
   const dados = {
     items: [// VENDA
@@ -61,6 +60,6 @@ app.get('/pagar', async (req, res) => {
   }
 })
 
-app.listen(3000, (req, res) => {
+app.listen(process.env.PORT ? Number(process.env.PORT) : 3000, (req, res) => {
   console.log('Servidor rodando!');
 });
