@@ -79,7 +79,22 @@ app.post('/notificar', (req, res) => {
     MercadoPago.payment.search({
       qs: filtro
     }).then(data => {
-      console.log(data);
+      // console.log(data);
+      const pagamento = data.body.results[0];
+
+      if (pagamento != undefined) {
+        console.log(pagamento);
+        console.log(pagamento.external_reference);
+        console.log(pagamento.status);// approved
+
+        // Aplicação processar o Pagamento
+        if (pagamento.status === 'approved') {
+          //! DICA - Salvar no BD => Banco.definirComoPago(pagamento.external_reference)
+        }
+      } else {
+        console.log('Pagamento não existe!');
+      }
+
     }).catch(err => {
       console.log(err);
     })
